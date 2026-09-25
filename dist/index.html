@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#07130f">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="A.C.A.D.I.A.">
+  <meta name="format-detection" content="telephone=no">
+  <title>A C A D I A Motion Tracker</title>
+  <meta name="description" content="Offline field motion tracker for A.C.A.D.I.A. Colonial Marines">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="crt" aria-hidden="true"></div>
+
+  <main class="app-shell">
+    <section id="setup" class="screen setup-screen active" aria-labelledby="setup-title">
+      <header class="brand-block">
+        <div class="crest" aria-hidden="true">A</div>
+        <div>
+          <p class="eyebrow">Atlantic Command Against Dangerous Interstellar Aliens</p>
+          <h1 id="setup-title">Field Motion Tracker</h1>
+        </div>
+      </header>
+
+      <div class="mission-card">
+        <p class="mission-label">Crash Site Assignment</p>
+        <h2>Colonial Marine Reserve Squad</h2>
+        <p>Recover the flight recorder. Avoid the eggs. The previous squad is only technically missing.</p>
+      </div>
+
+      <div class="status-list" aria-label="Device status">
+        <div><span>Scanner</span><strong>READY</strong></div>
+        <div><span>Local network</span><strong>NOT REQUIRED</strong></div>
+        <div><span>Previous squad</span><strong class="warning">OVERDUE</strong></div>
+      </div>
+
+      <fieldset class="scenario-picker">
+        <legend>Mission length</legend>
+        <label><input type="radio" name="scenario" value="demo"><span><b>Demo</b><small>45 seconds</small></span></label>
+        <label><input type="radio" name="scenario" value="standard" checked><span><b>Standard</b><small>2 minutes 30 seconds</small></span></label>
+        <label><input type="radio" name="scenario" value="manual"><span><b>Manual</b><small>Staff controls every cue</small></span></label>
+      </fieldset>
+
+      <div class="toggle-row">
+        <label><input id="sound-toggle" type="checkbox" checked><span>Sound</span></label>
+        <label><input id="haptic-toggle" type="checkbox" checked><span>Vibration</span></label>
+      </div>
+
+      <button id="arm-button" class="primary-button" type="button">
+        <span>Arm Scanner</span>
+        <small>Then hand device to squad leader</small>
+      </button>
+
+      <button id="install-button" class="text-button" type="button" hidden>Install on this phone</button>
+      <p id="install-help" class="install-help">For offline full-screen use, add this app to the phone’s Home Screen.</p>
+    </section>
+
+    <section id="tracker" class="screen tracker-screen" aria-labelledby="tracker-title">
+      <header class="tracker-header">
+        <button id="staff-trigger" class="wordmark" type="button" aria-label="Open staff controls">
+          <span>A.C.A.D.I.A.</span>
+          <small>FIELD UNIT 04</small>
+        </button>
+        <div class="mission-clock">
+          <span>MISSION</span>
+          <strong id="mission-time">00:00</strong>
+        </div>
+      </header>
+
+      <div id="alert-strip" class="alert-strip" role="status" aria-live="assertive">SCANNING</div>
+
+      <div class="radar-wrap">
+        <div id="radar" class="radar" role="img" aria-label="Motion tracker radar">
+          <div class="grid"></div>
+          <div class="sweep"></div>
+          <div class="origin" aria-hidden="true"></div>
+          <div id="blips" class="blips" aria-hidden="true"></div>
+          <div class="range-label r1">05</div>
+          <div class="range-label r2">10</div>
+          <div class="range-label r3">20M</div>
+        </div>
+      </div>
+
+      <div class="readout">
+        <div><span>Contacts</span><strong id="contact-count">00</strong></div>
+        <div class="distance"><span>Nearest</span><strong id="distance">--.- M</strong></div>
+        <div><span>Signal</span><strong id="signal">CLEAR</strong></div>
+      </div>
+
+      <div class="objective">
+        <span>Current order</span>
+        <strong id="objective-text">ENTER THE WRECK</strong>
+      </div>
+
+      <div class="tracker-actions">
+        <button id="pulse-button" class="pulse-button" type="button">Echo Pulse</button>
+        <button id="abort-button" class="small-button" type="button">Hold to abort</button>
+      </div>
+
+      <p class="hint">Staff access: hold A.C.A.D.I.A. for two seconds</p>
+    </section>
+
+    <section id="complete" class="screen complete-screen" aria-labelledby="complete-title">
+      <div class="complete-icon" aria-hidden="true">✓</div>
+      <p class="eyebrow">Mission Objective Secured</p>
+      <h1 id="complete-title">Flight Recorder Recovered</h1>
+      <p>Proceed immediately to Intelligence at the Boatshop.</p>
+      <p class="joke">Do not tell them we lost another squad. Their budget review is next week.</p>
+      <button id="rearm-button" class="primary-button" type="button">Return Device to Staff</button>
+    </section>
+  </main>
+
+  <dialog id="staff-dialog" class="staff-dialog">
+    <form method="dialog">
+      <header>
+        <div><span class="eyebrow">Restricted</span><h2>Staff Console</h2></div>
+        <button class="close-button" value="close" aria-label="Close staff controls">×</button>
+      </header>
+      <p>Override the automatic sequence when performers need more or less time.</p>
+      <div class="cue-grid">
+        <button type="button" data-cue="clear">Clear</button>
+        <button type="button" data-cue="one">One contact</button>
+        <button type="button" data-cue="multiple">Multiple</button>
+        <button type="button" data-cue="swarm">Swarm</button>
+        <button type="button" data-cue="objective">Black box</button>
+        <button type="button" data-cue="evacuate">Evacuate</button>
+      </div>
+      <button id="resume-auto" type="button" class="resume-button">Resume Automatic Timeline</button>
+      <button id="staff-reset" type="button" class="danger-button">Reset Mission</button>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
