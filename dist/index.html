@@ -41,25 +41,72 @@
         <div><span>Previous squad</span><strong class="warning">OVERDUE</strong></div>
       </div>
 
-      <fieldset class="scenario-picker">
-        <legend>Mission length</legend>
-        <label><input type="radio" name="scenario" value="demo"><span><b>Demo</b><small>45 seconds</small></span></label>
-        <label><input type="radio" name="scenario" value="standard" checked><span><b>Standard</b><small>2 minutes 30 seconds</small></span></label>
-        <label><input type="radio" name="scenario" value="manual"><span><b>Manual</b><small>Staff controls every cue</small></span></label>
-      </fieldset>
-
       <div class="toggle-row">
         <label><input id="sound-toggle" type="checkbox" checked><span>Sound</span></label>
         <label><input id="haptic-toggle" type="checkbox" checked><span>Vibration</span></label>
       </div>
 
       <button id="arm-button" class="primary-button" type="button">
-        <span>Arm Scanner</span>
-        <small>Then hand device to squad leader</small>
+        <span>Begin Visitor Tutorial</span>
+        <small>Hand device to the squad leader</small>
       </button>
 
       <button id="install-button" class="text-button" type="button" hidden>Install on this phone</button>
       <p id="install-help" class="install-help">For offline full-screen use, add this app to the phone’s Home Screen.</p>
+    </section>
+
+    <section id="tutorial" class="screen tutorial-screen" aria-labelledby="tutorial-title">
+      <header class="tracker-header">
+        <div class="wordmark static-wordmark">
+          <span>A.C.A.D.I.A.</span>
+          <small>MARINE TRAINING</small>
+        </div>
+        <div class="tutorial-progress" aria-label="Tutorial progress"><b id="tutorial-step-number">1</b><span>/ 3</span></div>
+      </header>
+
+      <div class="tutorial-copy">
+        <p class="eyebrow">Mandatory Field Tutorial</p>
+        <h1 id="tutorial-title">You Are the Squad Leader</h1>
+        <p id="tutorial-text">The green lights represent movement. The distance display tells you how close the nearest contact is.</p>
+      </div>
+
+      <div id="training-radar" class="training-radar" aria-label="Example motion tracker">
+        <span class="training-ring ring-one"></span>
+        <span class="training-ring ring-two"></span>
+        <span id="training-blip" class="training-blip"></span>
+        <span class="training-origin"></span>
+      </div>
+
+      <div id="tutorial-readout" class="tutorial-readout">
+        <span>Nearest contact</span>
+        <strong id="training-distance">12.0 M</strong>
+      </div>
+
+      <button id="tutorial-action" class="primary-button" type="button">Next</button>
+      <button id="tutorial-back" class="text-button" type="button">Back</button>
+    </section>
+
+    <section id="ready" class="screen ready-screen" aria-labelledby="ready-title">
+      <div class="complete-icon ready-icon" aria-hidden="true">!</div>
+      <p class="eyebrow">Tutorial Complete</p>
+      <h1 id="ready-title">Squad Ready to Deploy</h1>
+      <ul class="orders-list">
+        <li>Stay together</li>
+        <li>Watch the distance</li>
+        <li>Obey evacuation orders</li>
+        <li>Do not pet anything</li>
+      </ul>
+      <button id="go-button" class="go-button" type="button">
+        <span>Staff Hold to Go</span>
+        <small>Starts the fixed ten minute mission</small>
+      </button>
+      <p class="hold-note">Hold for two seconds to prevent an accidental start</p>
+    </section>
+
+    <section id="countdown" class="screen countdown-screen" aria-live="assertive">
+      <p class="eyebrow">Deployment Begins In</p>
+      <strong id="countdown-number">3</strong>
+      <p>Prepare to enter the crash site</p>
     </section>
 
     <section id="tracker" class="screen tracker-screen" aria-labelledby="tracker-title">
@@ -123,7 +170,7 @@
         <div><span class="eyebrow">Restricted</span><h2>Staff Console</h2></div>
         <button class="close-button" value="close" aria-label="Close staff controls">×</button>
       </header>
-      <p>Override the automatic sequence when performers need more or less time.</p>
+      <p>Emergency controls pause the fixed ten minute sequence. Resume returns to the correct cue for the mission clock.</p>
       <div class="cue-grid">
         <button type="button" data-cue="clear">Clear</button>
         <button type="button" data-cue="one">One contact</button>
@@ -132,7 +179,7 @@
         <button type="button" data-cue="objective">Black box</button>
         <button type="button" data-cue="evacuate">Evacuate</button>
       </div>
-      <button id="resume-auto" type="button" class="resume-button">Resume Automatic Timeline</button>
+      <button id="resume-auto" type="button" class="resume-button">Resume Fixed Timeline</button>
       <button id="staff-reset" type="button" class="danger-button">Reset Mission</button>
     </form>
   </dialog>
