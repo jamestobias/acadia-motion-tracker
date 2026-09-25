@@ -20,7 +20,6 @@
   const countdownNumber = document.querySelector("#countdown-number");
   const rearmButton = document.querySelector("#rearm-button");
   const pulseButton = document.querySelector("#pulse-button");
-  const abortButton = document.querySelector("#abort-button");
   const staffTrigger = document.querySelector("#staff-trigger");
   const staffDialog = document.querySelector("#staff-dialog");
   const staffReset = document.querySelector("#staff-reset");
@@ -41,37 +40,37 @@
   const installDialog = document.querySelector("#install-dialog");
 
   const cueData = {
-    clear: { count: 0, distance: null, alert: "SCANNING", level: "", signal: "CLEAR", objective: "ENTER THE CRASH SITE", points: [] },
-    one: { count: 1, distance: 18.2, alert: "DISTANT MOTION", level: "warning", signal: "WEAK", objective: "CONTINUE FORWARD", points: [[66,27]] },
-    close: { count: 1, distance: 8.6, alert: "MOTION DETECTED", level: "warning", signal: "ACTIVE", objective: "HOLD POSITION AND SCAN", points: [[42,57]] },
-    multiple: { count: 3, distance: 6.9, alert: "MULTIPLE CONTACTS", level: "warning", signal: "ACTIVE", objective: "CHECK BOTH CORRIDORS", points: [[33,38],[63,45],[71,30]] },
-    interference: { count: 0, distance: null, alert: "SIGNAL INTERFERENCE", level: "warning", signal: "ERROR", objective: "KEEP THE SQUAD TOGETHER", points: [] },
-    objective: { count: 2, distance: 6.2, alert: "OBJECTIVE LOCATED", level: "warning", signal: "LOCKED", objective: "RECOVER THE FLIGHT RECORDER", points: [[52,41],[68,61]] },
-    secured: { count: 0, distance: null, alert: "OBJECTIVE SECURED", level: "", signal: "CLEAR", objective: "MOVE TOWARD THE EXIT", points: [] },
-    swarm: { count: 7, distance: 4.4, alert: "CONTACTS CONVERGING", level: "danger", signal: "DANGER", objective: "KEEP MOVING", points: [[34,32],[46,39],[62,34],[70,51],[58,63],[39,66],[25,48]] },
-    blind: { count: 0, distance: null, alert: "TRACKER BLIND", level: "danger", signal: "LOST", objective: "DO NOT STOP", points: [] },
-    nearSwarm: { count: 9, distance: 2.4, alert: "CONTACTS VERY CLOSE", level: "danger", signal: "CRITICAL", objective: "RUN", points: [[32,31],[44,35],[58,33],[69,40],[72,55],[61,63],[48,68],[35,61],[27,47]] },
-    evacuate: { count: 12, distance: 1.2, alert: "EVACUATE NOW", level: "danger", signal: "CRITICAL", objective: "EXIT THE CRASH SITE", points: [[31,25],[43,29],[56,27],[68,34],[75,46],[71,60],[62,69],[49,73],[37,68],[27,59],[23,46],[25,35]] }
+    clear: { count: 0, distance: null, alert: "SCANNING", level: "", signal: "CLEAR", objective: "ENTER THE CRASH SITE", spoken: "Scanner active. Enter the crash site.", points: [] },
+    one: { count: 1, distance: 18.2, alert: "DISTANT MOTION", level: "warning", signal: "WEAK", objective: "CONTINUE FORWARD", spoken: "Motion detected. Keep the squad together.", points: [[66,27]] },
+    close: { count: 1, distance: 8.6, alert: "MOTION DETECTED", level: "warning", signal: "ACTIVE", objective: "HOLD POSITION AND SCAN", spoken: "Contact closing. Hold position and scan.", points: [[42,57]] },
+    multiple: { count: 3, distance: 6.9, alert: "MULTIPLE CONTACTS", level: "warning", signal: "ACTIVE", objective: "CHECK BOTH CORRIDORS", spoken: "Multiple contacts. Check both corridors.", points: [[33,38],[63,45],[71,30]] },
+    interference: { count: 0, distance: null, alert: "SIGNAL INTERFERENCE", level: "warning", signal: "ERROR", objective: "KEEP THE SQUAD TOGETHER", spoken: "Signal interference. Keep the squad together.", points: [] },
+    objective: { count: 2, distance: 6.2, alert: "OBJECTIVE LOCATED", level: "warning", signal: "LOCKED", objective: "RECOVER THE FLIGHT RECORDER", spoken: "Flight recorder located. Recover the objective.", points: [[52,41],[68,61]] },
+    secured: { count: 0, distance: null, alert: "OBJECTIVE SECURED", level: "", signal: "CLEAR", objective: "MOVE TOWARD THE EXIT", spoken: "Objective secured. Move toward the exit.", points: [] },
+    swarm: { count: 7, distance: 4.4, alert: "CONTACTS CONVERGING", level: "danger", signal: "DANGER", objective: "KEEP MOVING", spoken: "Warning. Contacts converging. Keep moving.", points: [[34,32],[46,39],[62,34],[70,51],[58,63],[39,66],[25,48]] },
+    blind: { count: 0, distance: null, alert: "TRACKER BLIND", level: "danger", signal: "LOST", objective: "DO NOT STOP", spoken: "Tracker blind. Do not stop.", points: [] },
+    nearSwarm: { count: 9, distance: 2.4, alert: "CONTACTS VERY CLOSE", level: "danger", signal: "CRITICAL", objective: "RUN", spoken: "Contacts very close. Run.", points: [[32,31],[44,35],[58,33],[69,40],[72,55],[61,63],[48,68],[35,61],[27,47]] },
+    evacuate: { count: 12, distance: 1.2, alert: "EVACUATE NOW", level: "danger", signal: "CRITICAL", objective: "EXIT THE CRASH SITE", spoken: "Evacuate now. Exit the crash site.", points: [[31,25],[43,29],[56,27],[68,34],[75,46],[71,60],[62,69],[49,73],[37,68],[27,59],[23,46],[25,35]] }
   };
 
   const timeline = [
     [0,"clear"],
-    [27,"one"],
-    [48,"clear"],
-    [72,"close"],
+    [14,"one"],
+    [24,"clear"],
+    [36,"close"],
+    [48,"multiple"],
+    [62,"interference"],
+    [72,"objective"],
+    [86,"one"],
     [96,"multiple"],
-    [123,"interference"],
-    [144,"objective"],
-    [171,"one"],
-    [192,"multiple"],
-    [216,"secured"],
-    [237,"close"],
-    [255,"secured"],
-    [273,"swarm"],
-    [300,"blind"],
-    [315,"nearSwarm"],
-    [333,"evacuate"],
-    [360,"complete"]
+    [108,"secured"],
+    [119,"close"],
+    [128,"secured"],
+    [137,"swarm"],
+    [150,"blind"],
+    [158,"nearSwarm"],
+    [167,"evacuate"],
+    [180,"complete"]
   ];
 
   let startTime = 0;
@@ -115,6 +114,21 @@
     if (hapticToggle.checked && navigator.vibrate) navigator.vibrate(pattern);
   };
 
+  const speakOrder = (message) => {
+    if (!message || !soundToggle.checked || !("speechSynthesis" in window)) return;
+    const utterance = new SpeechSynthesisUtterance(message);
+    utterance.lang = "en-CA";
+    utterance.rate = .88;
+    utterance.pitch = .72;
+    utterance.volume = 1;
+    const voices = window.speechSynthesis.getVoices();
+    utterance.voice = voices.find((voice) => voice.lang.toLowerCase().startsWith("en-ca"))
+      || voices.find((voice) => voice.lang.toLowerCase().startsWith("en"))
+      || null;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  };
+
   const requestWakeLock = async () => {
     try { if ("wakeLock" in navigator) wakeLock = await navigator.wakeLock.request("screen"); } catch (_) {}
   };
@@ -156,6 +170,7 @@
     objectiveText.textContent = cue.objective;
     drawBlips(cue);
     scheduleBeep(cue);
+    speakOrder(cue.spoken);
     if (cue.level === "warning") vibrate([55, 70, 55]);
     if (cue.level === "danger") vibrate([100, 50, 100, 50, 180]);
   };
@@ -198,7 +213,7 @@
       tutorialAction.textContent = "Next";
     } else if (tutorialStep === 2) {
       tutorialTitle.textContent = "Test the Contact Alert";
-      tutorialText.textContent = "When the tracker detects movement, it will beep faster as the contact approaches. Sound and vibration work best when you keep the phone in your hand.";
+      tutorialText.textContent = "When the tracker detects movement, it will beep faster and speak the current order. Sound and vibration work best when you keep the phone in your hand.";
       trainingDistance.textContent = tutorialTested ? "06.0 M" : "--.- M";
       tutorialAction.textContent = tutorialTested ? "Next" : "Test Scanner";
     } else {
@@ -226,6 +241,7 @@
       tone(820, .09, .09);
       setTimeout(() => tone(820, .09, .09), 420);
       vibrate([60, 120, 60]);
+      speakOrder("Motion detected. Keep the squad together.");
       return;
     }
     if (tutorialStep < 3) {
@@ -269,6 +285,7 @@
     tone(620, .12, .08);
     setTimeout(() => tone(820, .15, .08), 160);
     vibrate([80, 60, 140]);
+    speakOrder("Mission complete. Proceed to Intelligence at the Boatshop.");
     show(complete);
   };
 
@@ -315,9 +332,6 @@
   staffTrigger.addEventListener("pointerdown", () => beginHold(() => staffDialog.showModal(), 1800));
   staffTrigger.addEventListener("pointerup", endHold);
   staffTrigger.addEventListener("pointercancel", endHold);
-  abortButton.addEventListener("pointerdown", () => beginHold(resetMission, 1600));
-  abortButton.addEventListener("pointerup", endHold);
-  abortButton.addEventListener("pointercancel", endHold);
   staffReset.addEventListener("click", resetMission);
   document.querySelectorAll("[data-cue]").forEach((button) => button.addEventListener("click", () => {
     autoPaused = true;

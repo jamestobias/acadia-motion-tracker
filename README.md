@@ -18,11 +18,10 @@ Open `http://localhost:8080` on a phone connected to the same network, then inst
 2. Tap **Begin Visitor Tutorial** and hand the phone to the squad leader.
 3. Guide the visitors through the three tutorial screens and scanner test.
 4. When the performers are ready, staff hold **Staff Hold to Go** for two seconds.
-5. A three-second countdown starts the fixed six-minute mission.
-6. In an emergency, hold **Hold to abort** for about two seconds.
-7. To open the hidden staff console, hold the **A.C.A.D.I.A.** wordmark for about two seconds.
+5. A three-second countdown starts the fixed three-minute mission.
+6. To open the hidden emergency controls, hold the **A.C.A.D.I.A.** wordmark for about two seconds.
 
-Every mission uses the same six-minute timeline, contact locations, distances, sounds, orders, and ending. The staff console can trigger Clear, One Contact, Multiple Contacts, Swarm, Black Box, Evacuate, or Reset for emergencies. A manual cue pauses the fixed timeline until staff selects **Resume Fixed Timeline**, which returns to the correct cue for the mission clock.
+Every mission uses the same three-minute timeline, contact locations, distances, sounds, spoken orders, and ending. The staff console can trigger Clear, One Contact, Multiple Contacts, Swarm, Black Box, Evacuate, or Reset for emergencies. A manual cue pauses the fixed timeline until staff selects **Resume Fixed Timeline**, which returns to the correct cue for the mission clock.
 
 ## Phone setup
 
