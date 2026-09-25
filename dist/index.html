@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#07130f">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="A.C.A.D.I.A.">
   <meta name="format-detection" content="telephone=no">
@@ -13,7 +14,7 @@
   <meta name="description" content="Offline field motion tracker for A.C.A.D.I.A. Colonial Marines">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
-  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
   <link rel="stylesheet" href="app.css">
 </head>
 <body>
@@ -38,6 +39,7 @@
       <div class="status-list" aria-label="Device status">
         <div><span>Scanner</span><strong>READY</strong></div>
         <div><span>Local network</span><strong>NOT REQUIRED</strong></div>
+        <div><span>iPhone standalone</span><strong>SUPPORTED</strong></div>
         <div><span>Previous squad</span><strong class="warning">OVERDUE</strong></div>
       </div>
 
@@ -52,6 +54,7 @@
       </button>
 
       <button id="install-button" class="text-button" type="button" hidden>Install on this phone</button>
+      <button id="install-guide-button" class="text-button secondary-link" type="button">Phone installation guide</button>
       <p id="install-help" class="install-help">For offline full-screen use, add this app to the phone’s Home Screen.</p>
     </section>
 
@@ -181,6 +184,31 @@
       </div>
       <button id="resume-auto" type="button" class="resume-button">Resume Fixed Timeline</button>
       <button id="staff-reset" type="button" class="danger-button">Reset Mission</button>
+    </form>
+  </dialog>
+
+  <dialog id="install-dialog" class="staff-dialog install-dialog">
+    <form method="dialog">
+      <header>
+        <div><span class="eyebrow">Show Phone Setup</span><h2>Install the Scanner</h2></div>
+        <button class="close-button" value="close" aria-label="Close installation guide">×</button>
+      </header>
+      <h3>iPhone</h3>
+      <ol>
+        <li>Open this address in Safari.</li>
+        <li>Tap the Share button.</li>
+        <li>Choose Add to Home Screen.</li>
+        <li>Open A.C.A.D.I.A. from its new icon.</li>
+        <li>Complete one tutorial while online to cache the app.</li>
+      </ol>
+      <h3>Samsung or Android</h3>
+      <ol>
+        <li>Open this address in Chrome.</li>
+        <li>Tap Install app or Add to Home screen.</li>
+        <li>Open A.C.A.D.I.A. from its new icon.</li>
+        <li>Complete one tutorial while online to cache the app.</li>
+      </ol>
+      <p class="ios-note">For show use, enable Guided Access on iPhone or app pinning on Android, set media volume, and prevent automatic screen locking.</p>
     </form>
   </dialog>
 

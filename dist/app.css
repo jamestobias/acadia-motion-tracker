@@ -77,6 +77,7 @@ h2 { font-size: 1.15rem; line-height: 1.2; text-transform: uppercase; }
 .primary-button span, .primary-button small { display: block; }
 .primary-button small { margin-top: 4px; font-size: .68rem; font-weight: 400; }
 .text-button { margin: 16px auto 0; padding: 8px; background: transparent; color: var(--bright); text-decoration: underline; }
+.secondary-link { margin-top: 4px; }
 .install-help { margin: 14px 20px 0; color: var(--muted); font: .78rem/1.4 system-ui, sans-serif; text-align: center; }
 
 .tutorial-screen { text-align: center; }
@@ -173,6 +174,10 @@ h2 { font-size: 1.15rem; line-height: 1.2; text-transform: uppercase; }
 .cue-grid button { min-height: 50px; padding: 9px; border: 1px solid #2f724b; background: #0c2417; color: var(--ink); text-transform: uppercase; }
 .danger-button { width: 100%; min-height: 48px; background: #5d1c1b; color: #fff; text-transform: uppercase; }
 .resume-button { width: 100%; min-height: 48px; margin-bottom: 9px; border: 1px solid var(--bright); background: transparent; color: var(--bright); text-transform: uppercase; }
+.install-dialog h3 { margin: 20px 0 8px; color: var(--bright); text-transform: uppercase; }
+.install-dialog ol { margin: 0; padding-left: 24px; color: #d4f5df; font: .95rem/1.55 system-ui, sans-serif; }
+.install-dialog li + li { margin-top: 5px; }
+.install-dialog .ios-note { margin: 22px 0 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); }
 
 @keyframes sweep { to { transform: rotate(360deg); } }
 @keyframes blip { 50% { opacity: .38; } }

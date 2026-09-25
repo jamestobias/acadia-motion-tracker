@@ -36,7 +36,9 @@
   const soundToggle = document.querySelector("#sound-toggle");
   const hapticToggle = document.querySelector("#haptic-toggle");
   const installButton = document.querySelector("#install-button");
+  const installGuideButton = document.querySelector("#install-guide-button");
   const installHelp = document.querySelector("#install-help");
+  const installDialog = document.querySelector("#install-dialog");
 
   const cueData = {
     clear: { count: 0, distance: null, alert: "SCANNING", level: "", signal: "CLEAR", objective: "ENTER THE CRASH SITE", points: [] },
@@ -342,6 +344,7 @@
     deferredInstall = null;
     installButton.hidden = true;
   });
+  installGuideButton.addEventListener("click", () => installDialog.showModal());
 
   if (/iphone|ipad|ipod/i.test(navigator.userAgent) && !window.navigator.standalone) {
     installHelp.textContent = "On iPhone: tap Share, then Add to Home Screen. Open it once before the event to cache it offline.";
