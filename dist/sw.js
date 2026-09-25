@@ -1,4 +1,4 @@
-const CACHE = "acadia-motion-tracker-v3";
+const CACHE = "acadia-motion-tracker-v4";
 const ASSETS = ["./", "index.html", "app.css", "app.js", "manifest.webmanifest", "icon.svg", "icon-180.png", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", (event) => {

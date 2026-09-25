@@ -54,22 +54,22 @@
 
   const timeline = [
     [0,"clear"],
-    [45,"one"],
-    [80,"clear"],
-    [120,"close"],
-    [160,"multiple"],
-    [205,"interference"],
-    [240,"objective"],
-    [285,"one"],
-    [320,"multiple"],
-    [360,"secured"],
-    [395,"close"],
-    [425,"secured"],
-    [455,"swarm"],
-    [500,"blind"],
-    [525,"nearSwarm"],
-    [555,"evacuate"],
-    [600,"complete"]
+    [27,"one"],
+    [48,"clear"],
+    [72,"close"],
+    [96,"multiple"],
+    [123,"interference"],
+    [144,"objective"],
+    [171,"one"],
+    [192,"multiple"],
+    [216,"secured"],
+    [237,"close"],
+    [255,"secured"],
+    [273,"swarm"],
+    [300,"blind"],
+    [315,"nearSwarm"],
+    [333,"evacuate"],
+    [360,"complete"]
   ];
 
   let startTime = 0;
